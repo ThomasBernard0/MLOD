@@ -59,6 +59,84 @@ void affiche_matrice(int64_t matrice[5][5])
         printf("\n");
     }
 }
+enum mois
+{
+    janvier = 1,
+    fevrier,
+    mars,
+    avril,
+    mai,
+    juin,
+    juillet,
+    aout,
+    septembre,
+    octobre,
+    novembre,
+    decembre
+};
+typedef enum mois Mois;
+
+struct date
+{
+    int jour;
+    Mois mois;
+    int annee;
+};
+typedef struct date Date;
+
+void initialiseDate(Date *d)
+{
+    printf("Entrez le jour :");
+    int j;
+    scanf("%i", &j);
+    printf("Entrez le mois :");
+    int m;
+    scanf("%i", &m);
+    printf("Entrez le annee :");
+    int a;
+    scanf("%i", &a);
+
+    d->annee = a;
+    d->mois = m;
+    d->jour = j;
+}
+
+void afficheDate(Date *d)
+{
+    printf("Nous somme le %i %i %i \n", d->jour, d->mois, d->annee);
+}
+
+Date creerDateParCopie()
+{
+    Date d;
+    printf("Entrez le jour :");
+    scanf("%i", &d.jour);
+    printf("Entrez le mois :");
+    scanf("%i", (int *)&d.mois);
+    printf("Entrez le annee :");
+    scanf("%i", &d.annee);
+    return d;
+}
+
+Date *newDate()
+{
+    Date *d;
+    d = malloc(sizeof(*d));
+    printf("Entrez le jour :");
+    int j;
+    scanf("%i", &j);
+    printf("Entrez le mois :");
+    int m;
+    scanf("%i", &m);
+    printf("Entrez le annee :");
+    int a;
+    scanf("%i", &a);
+
+    d->annee = a;
+    d->mois = m;
+    d->jour = j;
+    return d;
+}
 
 int main(void)
 {
@@ -74,11 +152,22 @@ int main(void)
     // int test3=estConvexe(t3,5);
     // printf("%d, %d, %d", test1,test2,test3);
 
-    int64_t matrice1[5][5] = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
-    int64_t matrice2[5][5] = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
-    int64_t matriceZero[5][5] = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
-    mult_matrice(matriceZero, matrice1, matrice2);
-    affiche_matrice(matriceZero);
+    // int64_t matrice1[5][5] = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
+    // int64_t matrice2[5][5] = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
+    // int64_t matriceZero[5][5] = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
+    // mult_matrice(matriceZero, matrice1, matrice2);
+    // affiche_matrice(matriceZero);
+
+    Date d;
+    initialiseDate(&d); //On ajoute un & pour pouvoir modifier d dans la fonction
+    afficheDate(&d);
+    Date d2 = creerDateParCopie();
+    afficheDate(&d2);
+    Date *d3;
+    d3 = newDate();
+    afficheDate(d3);
+
+    free(d3);
 
     return 0;
 }
