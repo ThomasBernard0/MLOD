@@ -11,12 +11,18 @@ bool estVide(Liste l) {
 
 // créer une liste d'un seul élément contenant la valeur v
 Liste creer(Element v){
-	return TODO;
+	Liste l;
+	g->val = v;
+	l->suiv = NULL;
+	return l;
 }
 
 // ajoute l'élément v en tete de la liste l
 Liste ajoutTete(Element v, Liste l) {
-	return TODO;
+	Liste ltete;
+	ltete=creer(v);
+	ltete->suiv=l;
+	return ltete;
 }
 
 
@@ -30,12 +36,20 @@ void afficheElement(Element e) {
 // Attention la liste peut être vide !
 // version itérative
 void afficheListe_i(Liste l) {
-	TODO;
+	if (estVide(l)){
+		printf("Liste vide");
+	}
+	else {
+		while(estVide(l)==false){
+			afficheElement(l->val);
+			l=l->suiv;
+		}
+	}
 }
 
 // version recursive
 void afficheListe_r(Liste l) {
-	TODO;
+
 }
 
 void detruireElement(Element e) {}
