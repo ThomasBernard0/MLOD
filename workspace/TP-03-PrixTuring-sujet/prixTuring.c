@@ -70,17 +70,17 @@ void readWinners(GagnantTuring **g, int nb)
 	}
 }
 
-void printWinners(GagnantTuring **g, int nb){
+void printWinners(GagnantTuring *g, int nb){
 	printf("%i\n",nb);
 	for (int t = 0; t < nb; t++){
-		printf("%i\n%s\n%s\n", (*g)[t].annee, (*g)[t].noms, (*g)[t].raison);
+		printf("%i\n%s\n%s\n", g[t].annee, g[t].noms, g[t].raison);
 	}
 }
 
-void infosAnnee(GagnantTuring **g, int nb,int an){
+void infosAnnee(GagnantTuring *g, int nb,int an){
 	for (int i=0;i<nb;i++){
-		if((*g)[i].annee == an){
-			printf("L'année %i, le gagnant a été %s \nNature des travaux:%s",(*g)[i].annee,(*g)[i].noms,(*g)[i].raison);
+		if(g[i].annee == an){
+			printf("L'année %i, le gagnant a été %s \nNature des travaux:%s",g[i].annee,g[i].noms,g[i].raison);
 		
 		}
 	}
@@ -92,8 +92,9 @@ int main(void)
 	GagnantTuring *G;
 	int nbGagnants = scanLineAsInt();
 	readWinners(&G, nbGagnants);
-	printWinners(&G, nbGagnants);
-	infosAnnee(&G, nbGagnants, 1969);
+	printWinners(G, nbGagnants);
+	infosAnnee(G, nbGagnants, 1969);
+	free(G);
 
 	return EXIT_SUCCESS;
 }
