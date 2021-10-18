@@ -52,7 +52,7 @@ void printMatrix(Matrice *matrice)
 
 void printMatrixArray(MatriceTableau matrices, Matrice *matrice)
 {
-    for (int i = 0; i < nbMatrice; i++)
+    for (int i = 0; i < matricces.nbMatrice; i++)
     {
         printMatrix(matrices[i]);
         printf("\n");
