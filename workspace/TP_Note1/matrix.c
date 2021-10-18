@@ -61,11 +61,14 @@ void printMatrixArray(MatriceTableau matrices, Matrice *matrice)
 
 int main(void)
 {
-    int nbMatrice, ligne, colonne;
-    scanf("%i", &nbMatrice);
+    int nbMat, ligne, colonne;
+    scanf("%i", &nbMat);
     scanf("%i %i", &ligne, &colonne);
-    MatriceTableau matricetab1[nbMatrice];
-    Matrice sousMatrice[ligne][colonne];
+    MatriceTableau matricetab1;
+    matricetab1.nbMatrice = nbMat;
+    Matrice sousMatrice;
+    sousMatrice.nbColonne = colonne;
+    sousMatrice.nbLigne = ligne;
     readMatrixArray(matricetab1, sousMatrice);
     printMatrixArray(matricetab1, sousMatrice);
 }
