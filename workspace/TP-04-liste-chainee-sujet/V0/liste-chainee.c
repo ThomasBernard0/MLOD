@@ -14,7 +14,8 @@ bool estVide(Liste l)
 Liste creer(Element v)
 {
 	Liste l;
-	g->val = v;
+	l = malloc(sizeof(Cellule));
+	l->val = v;
 	l->suiv = NULL;
 	return l;
 }
@@ -51,21 +52,29 @@ void afficheListe_i(Liste l)
 			afficheElement(l->val);
 			l = l->suiv;
 		}
+		printf("\n");
 	}
 }
 
 // version recursive
 void afficheListe_r(Liste l)
 {
+	if (l != NULL)
+	{
+		afficheElement(l->val);
+		afficheListe_r(l->suiv);
+	}
+	printf("\n");
 }
 
-void detruireElement(Element e) {}
+void detruireElement(Element e)
+{
+}
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l)
 {
-	TODO;
 }
 
 // version récursive
@@ -78,12 +87,22 @@ void detruire_r(Liste l)
 // version itérative
 Liste ajoutFin_i(Element v, Liste l)
 {
-	return TODO;
 }
 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l)
 {
+	// if (l->suiv != NULL)
+	// {
+	// 	ajouterElement(l->val);
+	// }
+	// else
+	// {
+	// 	while (l->suiv != NULL)
+	// 	{
+	// 		afficheListe_r(l->suiv);
+	// 	}
+	// }
 	return TODO;
 }
 
