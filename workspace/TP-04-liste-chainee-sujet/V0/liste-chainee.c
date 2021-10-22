@@ -47,7 +47,7 @@ void afficheListe_i(Liste l)
 	}
 	else
 	{
-		while (estVide(l) == false)
+		while (!estVide(l))
 		{
 			afficheElement(l->val);
 			l = l->suiv;
@@ -59,10 +59,14 @@ void afficheListe_i(Liste l)
 // version recursive
 void afficheListe_r(Liste l)
 {
-	if (l != NULL)
+	if (!estVide(l))
 	{
 		afficheElement(l->val);
 		afficheListe_r(l->suiv);
+	}
+	else
+	{
+		printf("\n");
 	}
 }
 
@@ -79,9 +83,9 @@ void detruire_i(Liste l)
 	{
 		temp = l;
 		l = l->suiv;
+		detruireElement(temp->val);
 		free(temp);
 	}
-	l = NULL;
 }
 
 // version récursive
@@ -90,9 +94,9 @@ void detruire_r(Liste l)
 	if (!estVide(l))
 	{
 		detruire_r(l->suiv);
+		detruireElement(l->val);
+		free(l);
 	}
-	free(l);
-	l = NULL;
 }
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
@@ -103,10 +107,9 @@ Liste ajoutFin_i(Element v, Liste l)
 	Liste temp = l;
 	if (estVide(l))
 	{
-		l = lfin;
-		return l;
+		return lfin;
 	}
-	while (temp->suiv != NULL)
+	while (!estVide(temp->suiv))
 	{
 		temp = temp->suiv;
 	}
@@ -117,7 +120,7 @@ Liste ajoutFin_i(Element v, Liste l)
 // version recursive
 Liste ajoutFin_r(Element v, Liste l)
 {
-	if (l == NULL)
+	if (estVide(l))
 	{
 		return creer(v);
 	}
@@ -138,12 +141,8 @@ bool equalsElement(Element e1, Element e2)
 // version itérative
 Liste cherche_i(Element v, Liste l)
 {
-	while (!estVide(l))
+	while (!estVide(l) && !equalsElement(l->val, v))
 	{
-		if (l->val == v)
-		{
-			return l;
-		}
 		l = l->suiv;
 	}
 	return l;
@@ -156,7 +155,7 @@ Liste cherche_r(Element v, Liste l)
 	{
 		return l;
 	}
-	if (l->val == v)
+	if (equalsElement(l->val, v))
 	{
 		return l;
 	}
@@ -171,16 +170,58 @@ Liste cherche_r(Element v, Liste l)
 // version itérative
 Liste retirePremier_i(Element v, Liste l)
 {
-	return TODO;
+	Liste lien, temp;
+	if (estVide(l))
+	{
+		return l;
+	}
+	if (equalsElement(l->val, v))
+	{
+		temp = l->suiv;
+		l->suiv = NULL;
+		detruire_i(l);
+		return temp;
+	}
+
+	lien = l;
+	temp = l->suiv;
+	while (!estVide(temp) && !equalsElement(temp->val, v))
+	{
+		lien = temp;
+		temp = temp->suiv;
+	}
+	if (!estVide(temp))
+	{
+		lien->suiv = temp->suiv;
+		temp->suiv = NULL;
+		detruire_i(temp);
+	}
+	return l;
 }
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l)
 {
-	return TODO;
+	if (estVide(l))
+	{
+		return l;
+	}
+	if (equalsElement(l->val, v))
+	{
+		Liste temp = l->suiv;
+		l->suiv = NULL;
+		detruire_i(l);
+		return temp;
+	}
+	l->suiv = retirePremier_r(v, l->suiv);
+	return l;
 }
 
 void afficheEnvers_r(Liste l)
 {
-	TODO;
+	if (!estVide(l))
+	{
+		afficheEnvers_r(l->suiv);
+		afficheElement(l->val);
+	}
 }
