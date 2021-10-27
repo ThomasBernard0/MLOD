@@ -2,17 +2,32 @@
 
 #include <stdbool.h>
 
-typedef int Element;
+// ============
+// Types
+// ============
+
+typedef void *Element;
 
 struct cellule_s
 {
-	Element val;
-	struct cellule_s *suiv;
+    Element val;
+    struct cellule_s *suiv;
 };
 
 typedef struct cellule_s Cellule;
-
 typedef Cellule *Liste;
+
+// ============
+// External Functions
+// ============
+
+extern void afficheElement(Element e);
+extern void detruireElement(Element e);
+extern bool equalsElement(Element e1, Element e2);
+
+// ============
+// Exported Functions
+// ============
 
 // retourne vrai si l est vide et faux sinon
 bool estVide(Liste l);
@@ -23,8 +38,6 @@ Liste creer(Element v);
 // ajoute l'élément v en tete de la liste l
 Liste ajoutTete(Element v, Liste l);
 
-void afficheElement(Element e);
-
 // affiche tous les éléments de la liste l
 // Attention, cette fonction doit être indépendante du type des éléments de la liste
 // utiliser une fonction annexe affiche_element
@@ -34,8 +47,6 @@ void afficheListe_i(Liste l);
 
 // version recursive
 void afficheListe_r(Liste l);
-
-void detruireElement(Element e);
 
 // Détruit tous les éléments de la liste l
 // version itérative
