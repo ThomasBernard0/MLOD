@@ -5,7 +5,7 @@
 // retourne TRUE si a est l'arbre vide et FALSE sinon
 bool estVide(ArbreBinaire a)
 {
-	return true;
+	return (a == NULL);
 }
 
 // initialise l'arbre a à l'arbre vide
@@ -18,7 +18,7 @@ void initialiser(ArbreBinaire *a)
 ArbreBinaire creer(Element e)
 {
 	ArbreBinaire a;
-	a = malloc(sizeof(ArbreBinaire));
+	a = malloc(sizeof(Noeud));
 	a->val = e;
 	initialiser(&a->filsGauche);
 	initialiser(&a->filsDroit);
@@ -159,9 +159,9 @@ void afficheGRD_r(ArbreBinaire a)
 {
 	if (!estVide(a))
 	{
-		afficheRGD_r(a->filsGauche);
+		afficheGRD_r(a->filsGauche);
 		printf("%i", a->val);
-		afficheRGD_r(a->filsDroit);
+		afficheGRD_r(a->filsDroit);
 	}
 }
 
@@ -169,8 +169,8 @@ void afficheGDR_r(ArbreBinaire a)
 {
 	if (!estVide(a))
 	{
-		afficheRGD_r(a->filsGauche);
-		afficheRGD_r(a->filsDroit);
+		afficheGDR_r(a->filsGauche);
+		afficheGDR_r(a->filsDroit);
 		printf("%i", a->val);
 	}
 }
