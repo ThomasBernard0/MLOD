@@ -141,7 +141,42 @@ int hauteur(ArbreBinaire a)
 // retourne le pere de elem dans l'arbre a ou NULL s'il n'existe pas
 ArbreBinaire pere(ArbreBinaire a, Element elem)
 {
-
+	if (estVide(a))
+	{
+		return NULL;
+	}
+	if (a->val == elem)
+	{
+		return NULL;
+	}
+	if (a->val > elem)
+	{
+		if (!estVide(a->filsGauche))
+		{
+			if (a->filsGauche->val == elem)
+			{
+				return a;
+			}
+			else
+			{
+				return pere(a->filsGauche, elem);
+			}
+		}
+	}
+	else
+	{
+		if (!estVide(a->filsDroit))
+		{
+			if (a->filsDroit->val == elem)
+			{
+				return a;
+			}
+			else
+			{
+				return pere(a->filsDroit, elem);
+			}
+		}
+	}
 	return NULL;
 }
 
@@ -201,17 +236,82 @@ ArbreBinaire max(ArbreBinaire a)
 // version récursive
 ArbreBinaire recherche_r(ArbreBinaire a, Element elem)
 {
-
+	if (estVide(a))
+	{
+		return NULL;
+	}
+	if (a->val == elem)
+	{
+		return a;
+	}
+	if (a->val > elem)
+	{
+		recherche_r(a->filsGauche, elem);
+	}
+	else
+	{
+		recherche_r(a->filsDroit, elem);
+	}
 	return NULL;
 }
 
 // suppime x de a
 ArbreBinaire supprimer_r(ArbreBinaire a, Element x)
 {
+	ArbreBinaire temp;
+	if (estVide(a))
+	{
+		return a;
+	}
+	// on cherche le noeud a supprimer
+	if (x < a->val)
+	{
+		a->filsGauche = supprimer_r(a->filsGauche, x);
+	}
+	if (x > a->val)
+	{
+		a->filsDroit = supprimer_r(a->filsDroit, x);
+	}
+	if (x == a->val)
+	{
+		//0fils
+		if (estVide(a->filsGauche) && (estVide(a->filsDroit)))
+		{
+			free(a);
+			a = NULL;
+			return NULL;
+		}
+		//1fils
+		else if (estVide(a->filsGauche))
+		{
+			temp = a->filsDroit;
+			free(a);
+			a = NULL;
+			return temp;
+		}
+		else if (estVide(a->filsDroit))
+		{
+			temp = a->filsGauche;
+			free(a);
+			a = NULL;
+			return temp;
+		}
+		//2fils
+		temp = max(a->filsGauche);
+		a->val = temp->val;
+		a->filsGauche = supprimer_r(a->filsGauche, temp->val);
+	}
 
-	return NULL;
+	return a;
 }
 
 void detruire_r(ArbreBinaire a)
 {
+	if (!estVide(a))
+	{
+		detruire_r(a->filsGauche);
+		detruire_r(a->filsDroit);
+		free(a);
+		a = NULL;
+	}
 }
